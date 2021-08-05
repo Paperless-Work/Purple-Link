@@ -1,15 +1,15 @@
 {
-	"name": "telegram-bot",
+	"name": "purple-link",
 	"private": true,
 	"version": "1.0.0",
 	"main": "index.js",
-	"author": "Faraz Patankar",
+	"author": "Pascal Oberbeck",
 	"license": "MIT",
 	"scripts": {
 		"dev": "nodemon src/index.ts",
 		"build": "tsc",
 		"start": "node dist/index.js",
-    "dev-ui":"npx tailwindcss -o public/tailwind.css --watch --jit --purge='./public/**/*.html'"
+		"dev-ui": "npx tailwindcss -o public/tailwind.css --watch --jit --purge='./public/**/*.html'"
 	},
 	"dependencies": {
 		"express": "^4.17.1",
