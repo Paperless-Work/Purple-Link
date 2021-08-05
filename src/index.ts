@@ -4,10 +4,10 @@ import { nanoid } from 'nanoid';
 import redis from 'redis';
 
 if (!process.env.TELEGRAM_BOT_TOKEN) throw new Error('Please add a bot token');
-if (!process.env.DATABASE_URL) throw new Error('Please add a database url');
+if (!process.env.REDIS_URL) throw new Error('Please add a database url');
 if (!process.env.PUBLIC_URL) throw new Error('Please add a public url');
 
-const db = redis.createClient(process.env.DATABASE_URL);
+const db = redis.createClient(process.env.REDIS_URL);
 db.on('connect', function () {
 	console.log('Connection to DB successful! 🗄');
 });
