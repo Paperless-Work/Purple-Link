@@ -1,13 +1,20 @@
-import bodyParser from 'body-parser';
 import express from 'express';
 import { Telegraf } from 'telegraf';
 import { nanoid } from 'nanoid';
 import redis from 'redis';
-const db = redis.createClient('redis://default:hglhurclVjSs9zXzY8KU@containers-us-west-10.railway.app:7077');
 
 if (!process.env.TELEGRAM_BOT_TOKEN) throw new Error('Please add a bot token');
+if (!process.env.DATABASE_URL) throw new Error('Please add a database url');
+if (!process.env.PUBLIC_URL) throw new Error('Please add a public url');
+
+const db = redis.createClient(process.env.DATABASE_URL);
+db.on('connect', function () {
+	console.log('Connection to DB successful! 🗄');
+});
+
 const bot = new Telegraf(process.env.TELEGRAM_BOT_TOKEN);
-bot.start((ctx) => ctx.reply('Welcome'));
+bot.start((ctx) => ctx.reply('Welcome to Purple Link! Just send me a link and I will short it for you.'));
+bot.help((ctx) => ctx.reply('Just send me a valid link and I will short it for you.'));
 bot.on('text', (ctx) => {
 	if (ctx.message.entities && ctx.message.entities[0].type === 'url') {
 		const shortUrl = {
@@ -19,7 +26,7 @@ bot.on('text', (ctx) => {
 
 		ctx.reply(`Okay ✅ Your short link is ${process.env.PUBLIC_URL}/${shortUrl.id}`);
 	} else {
-		ctx.reply('Sorry 😬 I can not handle something else then urls.');
+		ctx.reply("Sorry 😬 I can't handle something else then urls.");
 	}
 });
 bot.launch();
@@ -44,10 +51,6 @@ app.get('*', async (req, res) => {
 		}
 		res.redirect('/404.html');
 	});
-});
-
-db.on('connect', function () {
-	console.log('Connection to DB successful! 🗄');
 });
 
 app.listen(port, () => {
