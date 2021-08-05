@@ -17,7 +17,7 @@ bot.on('text', (ctx) => {
 
 		db.set(shortUrl.id, shortUrl.url);
 
-		ctx.reply(`Okay ✅ Your short link is ${process.env.PUBLIC_URL + shortUrl.id}`);
+		ctx.reply(`Okay ✅ Your short link is ${process.env.PUBLIC_URL}/${shortUrl.id}`);
 	} else {
 		ctx.reply('Sorry 😬 I can not handle something else then urls.');
 	}
