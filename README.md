@@ -3,3 +3,5 @@
 # Purple Link 🔗
 
 A fast and easy to use link shorter for Telegram.
+
+Open in Telegram 👉 https://t.me/purple_link_bot
